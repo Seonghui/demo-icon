@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>demo-icon</title>
+    <style>
+        #preview1 > svg {
+            width: 96px;
+            height: 96px;
+        }
+        #preview1 > svg > * {
+            vector-effect: non-scaling-stroke;
+        }
+
+        #preview2 > svg {
+            width: 96px;
+            height: 96px;
+        }
+        #preview2 > svg > * {
+            stroke-width: 8px;
+            vector-effect: non-scaling-stroke;
+        }
+
+        #preview3 > svg {
+            width: 96px;
+            height: 96px;
+            fill: #F9B2B7
+        }
+        #preview3 > svg > * {
+            vector-effect: non-scaling-stroke;
+            stroke: #EF3340;
+        }
+    </style>
+</head>
+<body>
+    <label for="image-upload">파일 업로드</label>
+    <input type="file" id="image-upload" name="image-upload" />
+    <fieldset>
+        <legend>24 &times; 24 (original)</legend>
+        <div id="preview-original" class="preview"></div>
+    </fieldset>
+    <fieldset>
+        <legend>96 &times; 96(size changed)</legend>
+        <div id="preview1" class="preview"></div>
+    </fieldset>
+    <fieldset>
+        <legend>96 &times; 96 (stroke-width=8px)</legend>
+        <div id="preview2" class="preview"></div>
+    </fieldset>
+    <fieldset>
+        <legend>96 &times; 96 (color changed)</legend>
+        <div id="preview3" class="preview"></div>
+    </fieldset>
+    <script>
+       (function (){
+           var input = document.getElementById('image-upload');
+           var previews = document.getElementsByClassName('preview')
+
+           input.addEventListener('change', updateImageDisplay);
+
+           function updateImageDisplay() {
+               var imageFile = input.files[0];
+               imageFile.text().then(svgText => {
+                   for (var i = 0; i < previews.length; i++) {
+                       previews[i].innerHTML = svgText
+                   }
+               })
+           }
+       })()
+    </script>
+</body>
+</html>
